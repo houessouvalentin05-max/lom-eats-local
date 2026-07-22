@@ -59,29 +59,42 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-sun: var(--sun);
+  --color-leaf: var(--leaf);
+  --color-clay: var(--clay);
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
+  /* Warm West-African-inspired palette: terracotta, sun, palm, clay */
+  --background: oklch(0.985 0.012 75);
+  --foreground: oklch(0.24 0.04 40);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
+  --card-foreground: oklch(0.24 0.04 40);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
+  --popover-foreground: oklch(0.24 0.04 40);
+  --primary: oklch(0.64 0.19 38);          /* terracotta / sunset */
+  --primary-foreground: oklch(0.99 0.01 80);
+  --secondary: oklch(0.94 0.03 70);
+  --secondary-foreground: oklch(0.28 0.05 40);
+  --muted: oklch(0.95 0.02 75);
+  --muted-foreground: oklch(0.5 0.03 50);
+  --accent: oklch(0.92 0.06 90);
+  --accent-foreground: oklch(0.28 0.05 40);
+  --destructive: oklch(0.58 0.22 27);
+  --destructive-foreground: oklch(0.99 0.01 80);
+  --border: oklch(0.9 0.02 70);
+  --input: oklch(0.92 0.02 70);
+  --ring: oklch(0.64 0.19 38);
+  --brand: oklch(0.64 0.19 38);
+  --brand-foreground: oklch(0.99 0.01 80);
+  --sun: oklch(0.83 0.17 82);              /* mango yellow */
+  --leaf: oklch(0.55 0.13 145);            /* palm green */
+  --clay: oklch(0.42 0.08 40);              /* deep clay */
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
