@@ -153,5 +153,23 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-sans);
+  }
+}
+
+@utility input {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-background);
+  padding: 0.625rem 0.75rem;
+  font-size: 0.875rem;
+  color: var(--color-foreground);
+  outline: none;
+  &:focus {
+    box-shadow: 0 0 0 2px var(--color-primary);
+  }
+  &::placeholder {
+    color: var(--color-muted-foreground);
   }
 }
