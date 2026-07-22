@@ -1,0 +1,12 @@
+{
+  "name": "LocalEats — Lomé",
+  "short_name": "LocalEats",
+  "description": "Discover the best street food, maquis and restaurants in Lomé.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fff7ed",
+  "theme_color": "#e8562b",
+  "icons": [
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
