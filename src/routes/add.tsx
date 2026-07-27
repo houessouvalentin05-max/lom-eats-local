@@ -4,6 +4,7 @@ import { Camera, MapPin } from "lucide-react";
 import { CATEGORIES, type Category, type PriceRange } from "@/lib/mock-data";
 import { AppHeader } from "@/components/AppHeader";
 import { LazyPinPicker } from "@/components/LazyMap";
+import { CategoryIcon } from "@/components/CategoryIcon";
 
 export const Route = createFileRoute("/add")({
   head: () => ({
@@ -61,7 +62,7 @@ function AddSpot() {
                   category === c.id ? "border-primary bg-primary/10 text-primary" : "border-border bg-card"
                 }`}
               >
-                <span className="text-xl">{c.emoji}</span>
+                <CategoryIcon id={c.id} className="h-6 w-6" />
                 {c.label}
               </button>
             ))}
@@ -142,7 +143,8 @@ function AddSpot() {
         <button
           type="submit"
           disabled={!valid}
-          className="w-full rounded-xl bg-primary py-3 font-semibold text-primary-foreground shadow-md shadow-primary/20 transition active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-50"
+          className="w-full rounded-xl py-3 font-semibold shadow-md transition active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-50"
+          style={{ backgroundColor: "#C6432A", color: "#EFE6D2" }}
         >
           {submitted ? "✓ Spot added — merci!" : "Publish spot"}
         </button>
