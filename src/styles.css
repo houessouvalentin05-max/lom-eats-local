@@ -61,40 +61,48 @@
   --color-sidebar-ring: var(--sidebar-ring);
   --color-brand: var(--brand);
   --color-brand-foreground: var(--brand-foreground);
-  --color-sun: var(--sun);
-  --color-leaf: var(--leaf);
   --color-clay: var(--clay);
+  --color-slate-ink: var(--slate-ink);
+  --color-chalk: var(--chalk);
+  --color-chili: var(--chili);
+  --color-corn: var(--corn);
+  --color-teal-chair: var(--teal-chair);
   --font-display: "Fraunces", ui-serif, Georgia, serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-chalk: "Caveat", "Permanent Marker", cursive;
 }
 
 :root {
   --radius: 0.625rem;
-  /* Warm West-African-inspired palette: terracotta, sun, palm, clay */
-  --background: oklch(0.985 0.012 75);
-  --foreground: oklch(0.24 0.04 40);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.24 0.04 40);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.24 0.04 40);
-  --primary: oklch(0.64 0.19 38);          /* terracotta / sunset */
-  --primary-foreground: oklch(0.99 0.01 80);
-  --secondary: oklch(0.94 0.03 70);
-  --secondary-foreground: oklch(0.28 0.05 40);
-  --muted: oklch(0.95 0.02 75);
-  --muted-foreground: oklch(0.5 0.03 50);
-  --accent: oklch(0.92 0.06 90);
-  --accent-foreground: oklch(0.28 0.05 40);
-  --destructive: oklch(0.58 0.22 27);
-  --destructive-foreground: oklch(0.99 0.01 80);
-  --border: oklch(0.9 0.02 70);
-  --input: oklch(0.92 0.02 70);
-  --ring: oklch(0.64 0.19 38);
-  --brand: oklch(0.64 0.19 38);
-  --brand-foreground: oklch(0.99 0.01 80);
-  --sun: oklch(0.83 0.17 82);              /* mango yellow */
-  --leaf: oklch(0.55 0.13 145);            /* palm green */
-  --clay: oklch(0.42 0.08 40);              /* deep clay */
+  /* Maquis palette: slate, chalk, chair teal, roasted chili, grilled corn, clay */
+  --slate-ink: #1E1B16;
+  --chalk: #EFE6D2;
+  --teal-chair: #12807D;
+  --chili: #C6432A;
+  --corn: #E0A63E;
+  --clay: #8B5A3C;
+
+  --background: #EFE6D2;                    /* chalk */
+  --foreground: #1E1B16;                    /* slate */
+  --card: #F5EEDD;                          /* lighter chalk */
+  --card-foreground: #1E1B16;
+  --popover: #F5EEDD;
+  --popover-foreground: #1E1B16;
+  --primary: #12807D;                       /* chair teal */
+  --primary-foreground: #EFE6D2;
+  --secondary: #E4D9BE;
+  --secondary-foreground: #1E1B16;
+  --muted: #E4D9BE;
+  --muted-foreground: #8B5A3C;              /* clay */
+  --accent: #E0A63E;                        /* corn */
+  --accent-foreground: #1E1B16;
+  --destructive: #C6432A;                   /* chili */
+  --destructive-foreground: #EFE6D2;
+  --border: rgba(139, 90, 60, 0.22);        /* clay hairline */
+  --input: rgba(139, 90, 60, 0.28);
+  --ring: #12807D;
+  --brand: #12807D;
+  --brand-foreground: #EFE6D2;
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -172,4 +180,51 @@
   &::placeholder {
     color: var(--color-muted-foreground);
   }
+}
+
+/* Subtle noise/grain for glass surfaces so they don't look too clean */
+@utility chalk-grain {
+  position: relative;
+  isolation: isolate;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.09;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.94  0 0 0 0 0.90  0 0 0 0 0.82  0 0 0 0.9 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    border-radius: inherit;
+  }
+}
+
+/* Chalk-on-slate tag */
+@utility chalk-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background-color: #1E1B16;
+  color: #EFE6D2;
+  font-family: var(--font-chalk);
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1;
+  padding: 0.28rem 0.55rem 0.22rem;
+  border-radius: 3px;
+  letter-spacing: 0.01em;
+  box-shadow: inset 0 0 0 1px rgba(239, 230, 210, 0.09), 0 1px 0 rgba(0,0,0,0.15);
+}
+
+/* Small hand-drawn active-tab chalk stroke, single play on mount */
+@keyframes chalk-draw {
+  from { stroke-dashoffset: 120; opacity: 0; }
+  30%  { opacity: 1; }
+  to   { stroke-dashoffset: 0; opacity: 1; }
+}
+.chalk-stroke path,
+.chalk-stroke circle,
+.chalk-stroke ellipse {
+  stroke-dasharray: 120;
+  stroke-dashoffset: 120;
+  animation: chalk-draw 0.55s cubic-bezier(.55,.2,.4,1) forwards;
 }
