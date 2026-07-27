@@ -25,21 +25,31 @@ function Profile() {
 
   return (
     <div>
-      <div className="relative bg-gradient-to-br from-clay via-primary to-[oklch(0.75_0.15_65)] px-4 pb-16 pt-6 text-primary-foreground">
+      <div
+        className="chalk-grain relative px-4 pb-16 pt-6"
+        style={{ backgroundColor: "#1E1B16", color: "#EFE6D2" }}
+      >
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
-            <div className="grid h-16 w-16 place-items-center rounded-full bg-background/90 font-display text-2xl font-extrabold text-primary shadow-md">
+            <div
+              className="grid h-16 w-16 place-items-center rounded-full font-display text-2xl font-extrabold shadow-md"
+              style={{ backgroundColor: "#12807D", color: "#EFE6D2" }}
+            >
               {u.avatar}
             </div>
             <div>
               <h1 className="font-display text-xl font-extrabold">{u.name}</h1>
-              <p className="flex items-center gap-1 text-xs opacity-90">
-                <MapPin className="h-3 w-3" /> {u.city}
+              <p className="flex items-center gap-1 font-chalk text-base opacity-90">
+                <MapPin className="h-3.5 w-3.5" strokeWidth={1.5} /> {u.city}
               </p>
             </div>
           </div>
-          <button className="grid h-9 w-9 place-items-center rounded-full bg-background/20" aria-label="Settings">
-            <Settings className="h-5 w-5" />
+          <button
+            className="grid h-9 w-9 place-items-center rounded-full"
+            style={{ backgroundColor: "rgba(239, 230, 210, 0.12)" }}
+            aria-label="Settings"
+          >
+            <Settings className="h-5 w-5" strokeWidth={1.5} />
           </button>
         </div>
         <p className="mt-3 text-sm opacity-95">{u.bio}</p>
@@ -54,7 +64,7 @@ function Profile() {
       </div>
 
       <div className="mt-4 px-4">
-        <div className="flex gap-1 rounded-full bg-secondary p-1 text-sm">
+        <div className="flex items-center justify-around border-b border-border">
           <TabBtn active={tab === "spots"} onClick={() => setTab("spots")}>My spots</TabBtn>
           <TabBtn active={tab === "reviews"} onClick={() => setTab("reviews")}>Reviews</TabBtn>
           <TabBtn active={tab === "saved"} onClick={() => setTab("saved")}>Saved</TabBtn>
@@ -85,9 +95,10 @@ function Profile() {
                         {Array.from({ length: 5 }).map((_, i) => (
                           <Star
                             key={i}
-                            className={`h-3 w-3 ${
-                              i < r.rating ? "fill-[oklch(0.83_0.17_82)] text-[oklch(0.83_0.17_82)]" : "text-muted-foreground/40"
-                            }`}
+                            className="h-3 w-3"
+                            strokeWidth={1.5}
+                            fill={i < r.rating ? "#E0A63E" : "transparent"}
+                            color={i < r.rating ? "#E0A63E" : "rgba(139, 90, 60, 0.5)"}
                           />
                         ))}
                         <span className="ml-1 text-muted-foreground">{r.date}</span>
@@ -119,11 +130,23 @@ function TabBtn({ active, onClick, children }: { active: boolean; onClick: () =>
   return (
     <button
       onClick={onClick}
-      className={`flex-1 rounded-full py-1.5 text-sm font-medium transition ${
-        active ? "bg-card text-foreground shadow-sm" : "text-muted-foreground"
-      }`}
+      className="relative flex-1 py-2 text-sm font-medium transition"
+      style={{ color: active ? "#1E1B16" : "#8B5A3C" }}
     >
       {children}
+      {active && (
+        <svg
+          className="chalk-stroke pointer-events-none absolute -bottom-[1px] left-1/2 h-2 w-[70%] -translate-x-1/2"
+          viewBox="0 0 100 10"
+          fill="none"
+          stroke="#1E1B16"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+          aria-hidden
+        >
+          <path d="M4 6 C 20 2, 45 9, 60 4 C 78 0, 88 7, 96 4" />
+        </svg>
+      )}
     </button>
   );
 }

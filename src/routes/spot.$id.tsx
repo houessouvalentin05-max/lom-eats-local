@@ -2,6 +2,8 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowLeft, Bookmark, Clock, MapPin, Share2, Star, CheckCircle2, Camera } from "lucide-react";
 import { getSpot, reviewsForSpot, categoryOf, type Review } from "@/lib/mock-data";
+import { ChalkTag } from "@/components/ChalkTag";
+import { CategoryIcon } from "@/components/CategoryIcon";
 
 export const Route = createFileRoute("/spot/$id")({
   head: ({ params }) => {
@@ -64,15 +66,17 @@ function SpotPage() {
 
       <div className="space-y-4 px-4 pt-4">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="rounded-full bg-secondary px-2 py-0.5 text-xs font-medium text-secondary-foreground">
-              {cat.emoji} {cat.label}
-            </span>
-            <span className="text-xs font-semibold text-muted-foreground">{spot.price_range}</span>
+          <div className="flex flex-wrap items-center gap-1.5">
+            <ChalkTag>
+              <CategoryIcon id={spot.category} className="h-3.5 w-3.5" />
+              {cat.label}
+            </ChalkTag>
+            <ChalkTag>{spot.price_range}</ChalkTag>
+            {spot.trending && <ChalkTag>Trending</ChalkTag>}
           </div>
-          <h1 className="mt-1 font-display text-2xl font-extrabold leading-tight">{spot.name}</h1>
+          <h1 className="mt-2 font-display text-2xl font-extrabold leading-tight">{spot.name}</h1>
           <div className="mt-1 flex items-center gap-1 text-sm">
-            <Star className="h-4 w-4 fill-[oklch(0.83_0.17_82)] text-[oklch(0.83_0.17_82)]" />
+            <Star className="h-4 w-4" strokeWidth={1.5} fill="#E0A63E" color="#E0A63E" />
             <span className="font-semibold">{spot.rating.toFixed(1)}</span>
             <span className="text-muted-foreground">· {spot.review_count} reviews</span>
           </div>
@@ -95,7 +99,8 @@ function SpotPage() {
           <h2 className="font-display text-lg font-bold">Reviews</h2>
           <button
             onClick={() => setShowReview((v) => !v)}
-            className="rounded-full bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground shadow-sm"
+            className="rounded-full px-3 py-1.5 text-xs font-semibold shadow-sm"
+            style={{ backgroundColor: "#C6432A", color: "#EFE6D2" }}
           >
             {showReview ? "Cancel" : "+ Add review"}
           </button>
@@ -120,7 +125,7 @@ function SpotPage() {
             <div key={r.id} className="rounded-2xl bg-card p-3 ring-1 ring-border">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="grid h-9 w-9 place-items-center rounded-full bg-[oklch(0.92_0.06_90)] font-display font-bold text-clay">
+                  <div className="grid h-9 w-9 place-items-center rounded-full bg-accent font-display font-bold text-slate-ink">
                     {r.user_name.slice(0, 1)}
                   </div>
                   <div>
@@ -132,17 +137,20 @@ function SpotPage() {
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star
                       key={i}
-                      className={`h-3.5 w-3.5 ${
-                        i < r.rating ? "fill-[oklch(0.83_0.17_82)] text-[oklch(0.83_0.17_82)]" : "text-muted-foreground/40"
-                      }`}
+                      className="h-3.5 w-3.5"
+                      strokeWidth={1.5}
+                      fill={i < r.rating ? "#E0A63E" : "transparent"}
+                      color={i < r.rating ? "#E0A63E" : "rgba(139, 90, 60, 0.5)"}
                     />
                   ))}
                 </div>
               </div>
               <p className="mt-2 text-sm text-foreground">{r.text}</p>
               {r.visited_tag && (
-                <div className="mt-2 inline-flex items-center gap-1 rounded-full bg-[oklch(0.94_0.07_150)] px-2 py-0.5 text-[11px] font-medium text-[oklch(0.4_0.13_150)]">
-                  <CheckCircle2 className="h-3 w-3" /> I've been here
+                <div className="mt-2">
+                  <ChalkTag>
+                    <CheckCircle2 className="h-3 w-3" strokeWidth={1.5} /> I've been here
+                  </ChalkTag>
                 </div>
               )}
             </div>
@@ -180,20 +188,21 @@ function ReviewForm({ onSubmit }: { onSubmit: (r: Omit<Review, "id" | "spot_id" 
       }}
       className="space-y-3 rounded-2xl bg-card p-3 ring-1 ring-border"
     >
-      <div>
-        <div className="mb-1 text-xs font-medium uppercase tracking-wide text-muted-foreground">Your rating</div>
-        <div className="flex gap-1">
-          {[1, 2, 3, 4, 5].map((n) => (
-            <button key={n} type="button" onClick={() => setRating(n)}>
-              <Star
-                className={`h-7 w-7 ${
-                  n <= rating ? "fill-[oklch(0.83_0.17_82)] text-[oklch(0.83_0.17_82)]" : "text-muted-foreground/40"
-                }`}
-              />
-            </button>
-          ))}
+        <div>
+          <div className="mb-1 text-xs font-medium uppercase tracking-wide text-muted-foreground">Your rating</div>
+          <div className="flex gap-1">
+            {[1, 2, 3, 4, 5].map((n) => (
+              <button key={n} type="button" onClick={() => setRating(n)}>
+                <Star
+                  className="h-7 w-7"
+                  strokeWidth={1.5}
+                  fill={n <= rating ? "#E0A63E" : "transparent"}
+                  color={n <= rating ? "#E0A63E" : "rgba(139, 90, 60, 0.5)"}
+                />
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
       <textarea
         value={text}
         onChange={(e) => setText(e.target.value)}
@@ -216,7 +225,8 @@ function ReviewForm({ onSubmit }: { onSubmit: (r: Omit<Review, "id" | "spot_id" 
       </div>
       <button
         type="submit"
-        className="w-full rounded-xl bg-primary py-2.5 text-sm font-semibold text-primary-foreground shadow-sm active:scale-[0.99]"
+        className="w-full rounded-xl py-2.5 text-sm font-semibold shadow-sm active:scale-[0.99]"
+        style={{ backgroundColor: "#C6432A", color: "#EFE6D2" }}
       >
         Post review
       </button>

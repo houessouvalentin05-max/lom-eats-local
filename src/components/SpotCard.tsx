@@ -1,6 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { Star, MapPin } from "lucide-react";
 import { categoryOf, type Spot } from "@/lib/mock-data";
+import { ChalkTag } from "./ChalkTag";
+import { CategoryIcon } from "./CategoryIcon";
 
 export function SpotCard({ spot }: { spot: Spot }) {
   const cat = categoryOf(spot.category);
@@ -20,30 +22,27 @@ export function SpotCard({ spot }: { spot: Spot }) {
           className="h-full w-full object-cover"
         />
         <div className="absolute left-2 top-2 flex gap-1">
-          <span className="rounded-full bg-background/90 px-2 py-0.5 text-xs font-medium text-foreground shadow-sm">
-            {cat.emoji} {cat.label}
-          </span>
-          {spot.trending && (
-            <span className="rounded-full bg-primary px-2 py-0.5 text-xs font-medium text-primary-foreground shadow-sm">
-              🔥 Trending
-            </span>
-          )}
+          <ChalkTag>
+            <CategoryIcon id={spot.category} className="h-3.5 w-3.5" />
+            {cat.label}
+          </ChalkTag>
+          {spot.trending && <ChalkTag>Trending</ChalkTag>}
         </div>
-        <div className="absolute right-2 top-2 rounded-full bg-background/90 px-2 py-0.5 text-xs font-semibold text-foreground shadow-sm">
-          {spot.price_range}
+        <div className="absolute right-2 top-2">
+          <ChalkTag>{spot.price_range}</ChalkTag>
         </div>
       </div>
       <div className="space-y-1 p-3">
         <div className="flex items-start justify-between gap-2">
           <h3 className="min-w-0 truncate font-display text-lg font-semibold leading-tight">{spot.name}</h3>
           <div className="flex shrink-0 items-center gap-0.5 text-sm">
-            <Star className="h-4 w-4 fill-[oklch(0.83_0.17_82)] text-[oklch(0.83_0.17_82)]" />
+            <Star className="h-4 w-4" strokeWidth={1.5} fill="#E0A63E" color="#E0A63E" />
             <span className="font-semibold">{spot.rating.toFixed(1)}</span>
             <span className="text-muted-foreground">({spot.review_count})</span>
           </div>
         </div>
         <p className="flex items-center gap-1 text-xs text-muted-foreground">
-          <MapPin className="h-3 w-3" /> {spot.neighborhood} · {spot.address_description}
+          <MapPin className="h-3 w-3" strokeWidth={1.5} /> {spot.neighborhood} · {spot.address_description}
         </p>
       </div>
     </Link>
