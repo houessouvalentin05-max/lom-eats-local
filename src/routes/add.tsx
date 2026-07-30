@@ -40,7 +40,7 @@ function AddSpot() {
           setSubmitted(true);
           setTimeout(() => navigate({ to: "/" }), 1200);
         }}
-        className="space-y-5 p-4"
+        className="mx-auto max-w-3xl space-y-5 p-4 sm:p-6 lg:py-8"
       >
         <Field label="Name of the spot" required>
           <input
@@ -59,7 +59,9 @@ function AddSpot() {
                 key={c.id}
                 onClick={() => setCategory(c.id)}
                 className={`flex flex-col items-center gap-1 rounded-xl border p-2 text-xs font-medium transition ${
-                  category === c.id ? "border-primary bg-primary/10 text-primary" : "border-border bg-card"
+                  category === c.id
+                    ? "border-primary bg-primary/10 text-primary"
+                    : "border-border bg-card"
                 }`}
               >
                 <CategoryIcon id={c.id} className="h-6 w-6" />
@@ -77,7 +79,9 @@ function AddSpot() {
                 key={p}
                 onClick={() => setPrice(p)}
                 className={`flex-1 rounded-xl border py-2 text-sm font-semibold ${
-                  price === p ? "border-primary bg-primary/10 text-primary" : "border-border bg-card"
+                  price === p
+                    ? "border-primary bg-primary/10 text-primary"
+                    : "border-border bg-card"
                 }`}
               >
                 {p}
@@ -97,7 +101,12 @@ function AddSpot() {
         </Field>
 
         <Field label="Opening hours">
-          <input value={hours} onChange={(e) => setHours(e.target.value)} placeholder="12h – 23h · Fermé le lundi" className="input" />
+          <input
+            value={hours}
+            onChange={(e) => setHours(e.target.value)}
+            placeholder="12h – 23h · Fermé le lundi"
+            className="input"
+          />
         </Field>
 
         <Field label="Photos">
@@ -107,7 +116,9 @@ function AddSpot() {
             className="flex w-full items-center justify-center gap-2 rounded-xl border-2 border-dashed border-border bg-card py-6 text-sm text-muted-foreground"
           >
             <Camera className="h-5 w-5" />
-            {photos > 0 ? `${photos} photo${photos > 1 ? "s" : ""} added — tap to add more` : "Tap to add photos"}
+            {photos > 0
+              ? `${photos} photo${photos > 1 ? "s" : ""} added — tap to add more`
+              : "Tap to add photos"}
           </button>
         </Field>
 
@@ -130,12 +141,14 @@ function AddSpot() {
           hint="Tap the map to place a pin, then drag it to the exact spot."
         >
           <div className="overflow-hidden rounded-xl ring-1 ring-border">
-            <div className="h-64 w-full">
+            <div className="h-64 w-full md:h-80">
               <LazyPinPicker value={pin} onChange={setPin} />
             </div>
             <div className="flex items-center gap-2 border-t border-border bg-card px-3 py-2 text-xs text-muted-foreground">
               <MapPin className="h-3.5 w-3.5 text-primary" />
-              {pin ? `Pin at ${pin[0].toFixed(4)}, ${pin[1].toFixed(4)}` : "Tap the map to drop a pin"}
+              {pin
+                ? `Pin at ${pin[0].toFixed(4)}, ${pin[1].toFixed(4)}`
+                : "Tap the map to drop a pin"}
             </div>
           </div>
         </Field>

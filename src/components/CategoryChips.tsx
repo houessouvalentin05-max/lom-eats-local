@@ -46,20 +46,11 @@ export function CategoryChips({
           : undefined
       }
     >
-      <Chip
-        active={value === "all"}
-        onClick={() => onChange("all")}
-        glass={isGlass}
-      >
+      <Chip active={value === "all"} onClick={() => onChange("all")} glass={isGlass}>
         All
       </Chip>
       {CATEGORIES.map((c) => (
-        <Chip
-          key={c.id}
-          active={value === c.id}
-          onClick={() => onChange(c.id)}
-          glass={isGlass}
-        >
+        <Chip key={c.id} active={value === c.id} onClick={() => onChange(c.id)} glass={isGlass}>
           <CategoryIcon id={c.id} className="h-3.5 w-3.5" />
           {c.label}
         </Chip>

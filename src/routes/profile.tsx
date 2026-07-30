@@ -8,7 +8,10 @@ export const Route = createFileRoute("/profile")({
   head: () => ({
     meta: [
       { title: "Profile · LocalEats" },
-      { name: "description", content: "Your added spots, reviews and saved favourites on LocalEats." },
+      {
+        name: "description",
+        content: "Your added spots, reviews and saved favourites on LocalEats.",
+      },
     ],
   }),
   component: Profile,
@@ -21,12 +24,14 @@ function Profile() {
   const u = CURRENT_USER;
   const addedSpots = SPOTS.filter((s) => u.added_spot_ids.includes(s.id));
   const savedSpots = SPOTS.filter((s) => u.saved_spot_ids.includes(s.id));
-  const myReviews = REVIEWS.filter((r) => u.reviewed_spot_ids.includes(r.spot_id) && r.user_name === "Kofi A.");
+  const myReviews = REVIEWS.filter(
+    (r) => u.reviewed_spot_ids.includes(r.spot_id) && r.user_name === "Kofi A.",
+  );
 
   return (
     <div>
       <div
-        className="chalk-grain relative px-4 pb-16 pt-6"
+        className="chalk-grain relative px-4 pb-16 pt-6 sm:px-6 lg:px-10 xl:px-14"
         style={{ backgroundColor: "#1E1B16", color: "#EFE6D2" }}
       >
         <div className="flex items-start justify-between">
@@ -55,7 +60,7 @@ function Profile() {
         <p className="mt-3 text-sm opacity-95">{u.bio}</p>
       </div>
 
-      <div className="-mt-10 px-4">
+      <div className="-mt-10 px-4 sm:px-6 lg:px-10 xl:px-14">
         <div className="grid grid-cols-3 gap-2 rounded-2xl bg-card p-3 shadow-md ring-1 ring-border">
           <Stat n={addedSpots.length} label="Spots" />
           <Stat n={myReviews.length} label="Reviews" />
@@ -63,22 +68,35 @@ function Profile() {
         </div>
       </div>
 
-      <div className="mt-4 px-4">
+      <div className="mt-4 px-4 sm:px-6 lg:px-10 xl:px-14">
         <div className="flex items-center justify-around border-b border-border">
-          <TabBtn active={tab === "spots"} onClick={() => setTab("spots")}>My spots</TabBtn>
-          <TabBtn active={tab === "reviews"} onClick={() => setTab("reviews")}>Reviews</TabBtn>
-          <TabBtn active={tab === "saved"} onClick={() => setTab("saved")}>Saved</TabBtn>
+          <TabBtn active={tab === "spots"} onClick={() => setTab("spots")}>
+            My spots
+          </TabBtn>
+          <TabBtn active={tab === "reviews"} onClick={() => setTab("reviews")}>
+            Reviews
+          </TabBtn>
+          <TabBtn active={tab === "saved"} onClick={() => setTab("saved")}>
+            Saved
+          </TabBtn>
         </div>
       </div>
 
-      <div className="mt-4 space-y-3 px-4">
+      <div className="mt-4 grid gap-3 px-4 sm:px-6 md:grid-cols-2 lg:px-10 xl:grid-cols-3 xl:px-14">
         {tab === "spots" &&
-          (addedSpots.length ? addedSpots.map((s) => <SpotCard key={s.id} spot={s} />) : <Empty text="You haven't added any spots yet." />)}
+          (addedSpots.length ? (
+            addedSpots.map((s) => <SpotCard key={s.id} spot={s} />)
+          ) : (
+            <Empty text="You haven't added any spots yet." />
+          ))}
         {tab === "saved" &&
           (savedSpots.length ? (
             savedSpots.map((s) => <SpotCard key={s.id} spot={s} />)
           ) : (
-            <Empty text="Tap the bookmark on any spot to save it." icon={<Bookmark className="h-5 w-5" />} />
+            <Empty
+              text="Tap the bookmark on any spot to save it."
+              icon={<Bookmark className="h-5 w-5" />}
+            />
           ))}
         {tab === "reviews" &&
           (myReviews.length ? (
@@ -126,7 +144,15 @@ function Stat({ n, label }: { n: number; label: string }) {
   );
 }
 
-function TabBtn({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
+function TabBtn({
+  active,
+  onClick,
+  children,
+}: {
+  active: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}) {
   return (
     <button
       onClick={onClick}

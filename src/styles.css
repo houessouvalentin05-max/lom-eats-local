@@ -75,34 +75,34 @@
 :root {
   --radius: 0.625rem;
   /* Maquis palette: slate, chalk, chair teal, roasted chili, grilled corn, clay */
-  --slate-ink: #1E1B16;
-  --chalk: #EFE6D2;
-  --teal-chair: #12807D;
-  --chili: #C6432A;
-  --corn: #E0A63E;
-  --clay: #8B5A3C;
+  --slate-ink: #1e1b16;
+  --chalk: #efe6d2;
+  --teal-chair: #12807d;
+  --chili: #c6432a;
+  --corn: #e0a63e;
+  --clay: #8b5a3c;
 
-  --background: #EFE6D2;                    /* chalk */
-  --foreground: #1E1B16;                    /* slate */
-  --card: #F5EEDD;                          /* lighter chalk */
-  --card-foreground: #1E1B16;
-  --popover: #F5EEDD;
-  --popover-foreground: #1E1B16;
-  --primary: #12807D;                       /* chair teal */
-  --primary-foreground: #EFE6D2;
-  --secondary: #E4D9BE;
-  --secondary-foreground: #1E1B16;
-  --muted: #E4D9BE;
-  --muted-foreground: #8B5A3C;              /* clay */
-  --accent: #E0A63E;                        /* corn */
-  --accent-foreground: #1E1B16;
-  --destructive: #C6432A;                   /* chili */
-  --destructive-foreground: #EFE6D2;
-  --border: rgba(139, 90, 60, 0.22);        /* clay hairline */
+  --background: #efe6d2; /* chalk */
+  --foreground: #1e1b16; /* slate */
+  --card: #f5eedd; /* lighter chalk */
+  --card-foreground: #1e1b16;
+  --popover: #f5eedd;
+  --popover-foreground: #1e1b16;
+  --primary: #12807d; /* chair teal */
+  --primary-foreground: #efe6d2;
+  --secondary: #e4d9be;
+  --secondary-foreground: #1e1b16;
+  --muted: #e4d9be;
+  --muted-foreground: #8b5a3c; /* clay */
+  --accent: #e0a63e; /* corn */
+  --accent-foreground: #1e1b16;
+  --destructive: #c6432a; /* chili */
+  --destructive-foreground: #efe6d2;
+  --border: rgba(139, 90, 60, 0.22); /* clay hairline */
   --input: rgba(139, 90, 60, 0.28);
-  --ring: #12807D;
-  --brand: #12807D;
-  --brand-foreground: #EFE6D2;
+  --ring: #12807d;
+  --brand: #12807d;
+  --brand-foreground: #efe6d2;
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -203,8 +203,8 @@
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
-  background-color: #1E1B16;
-  color: #EFE6D2;
+  background-color: #1e1b16;
+  color: #efe6d2;
   font-family: var(--font-chalk);
   font-weight: 700;
   font-size: 0.95rem;
@@ -212,19 +212,152 @@
   padding: 0.28rem 0.55rem 0.22rem;
   border-radius: 3px;
   letter-spacing: 0.01em;
-  box-shadow: inset 0 0 0 1px rgba(239, 230, 210, 0.09), 0 1px 0 rgba(0,0,0,0.15);
+  box-shadow:
+    inset 0 0 0 1px rgba(239, 230, 210, 0.09),
+    0 1px 0 rgba(0, 0, 0, 0.15);
 }
 
 /* Small hand-drawn active-tab chalk stroke, single play on mount */
 @keyframes chalk-draw {
-  from { stroke-dashoffset: 120; opacity: 0; }
-  30%  { opacity: 1; }
-  to   { stroke-dashoffset: 0; opacity: 1; }
+  from {
+    stroke-dashoffset: 120;
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
 }
 .chalk-stroke path,
 .chalk-stroke circle,
 .chalk-stroke ellipse {
   stroke-dasharray: 120;
   stroke-dashoffset: 120;
-  animation: chalk-draw 0.55s cubic-bezier(.55,.2,.4,1) forwards;
+  animation: chalk-draw 0.55s cubic-bezier(0.55, 0.2, 0.4, 1) forwards;
+}
+
+.feed-hero {
+  position: relative;
+  background:
+    radial-gradient(circle at 90% 10%, rgba(224, 166, 62, 0.28), transparent 30%),
+    radial-gradient(circle at 10% 90%, rgba(18, 128, 125, 0.38), transparent 36%), #1e1b16;
+}
+.feed-hero::after {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(239, 230, 210, 0.18) 1px, transparent 1px);
+  background-size: 17px 17px;
+  content: "";
+  mask-image: linear-gradient(to bottom, black, transparent);
+  opacity: 0.35;
+}
+.hero-live-dot {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1px solid rgba(239, 230, 210, 0.17);
+  border-radius: 999px;
+  background: rgba(239, 230, 210, 0.08);
+  padding: 0.35rem 0.6rem;
+  color: rgba(239, 230, 210, 0.88);
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+.hero-live-dot::before {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 999px;
+  background: #e0a63e;
+  box-shadow: 0 0 0 0 rgba(224, 166, 62, 0.65);
+  content: "";
+  animation: live-pulse 1.8s ease-out infinite;
+}
+@keyframes live-pulse {
+  70%,
+  100% {
+    box-shadow: 0 0 0 0.42rem rgba(224, 166, 62, 0);
+  }
+}
+
+.app-launch-splash {
+  position: fixed;
+  z-index: 100;
+  display: grid;
+  width: 100%;
+  height: 100dvh;
+  place-items: center;
+  overflow: hidden;
+  border: 0;
+  background:
+    radial-gradient(circle at 50% 36%, rgba(18, 128, 125, 0.45), transparent 23%),
+    radial-gradient(circle at 80% 78%, rgba(198, 67, 42, 0.55), transparent 31%), #1e1b16;
+  cursor: pointer;
+}
+.app-launch-content {
+  display: grid;
+  place-items: center;
+  gap: 0.35rem;
+  animation: launch-rise 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.app-launch-mark {
+  width: 6.5rem;
+  margin-bottom: 0.6rem;
+  animation: launch-bob 1.6s ease-in-out infinite;
+}
+.app-launch-orbit {
+  position: absolute;
+  width: 18rem;
+  aspect-ratio: 1;
+  border: 1px solid rgba(239, 230, 210, 0.14);
+  border-radius: 50%;
+}
+.app-launch-orbit-one {
+  animation: launch-orbit 7s linear infinite;
+}
+.app-launch-orbit-two {
+  width: 27rem;
+  border-color: rgba(224, 166, 62, 0.16);
+  animation: launch-orbit 11s linear infinite reverse;
+}
+.app-launch-hint {
+  margin-top: 1.8rem;
+  color: rgba(239, 230, 210, 0.55);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+@keyframes launch-rise {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes launch-bob {
+  50% {
+    transform: translateY(-0.55rem) rotate(2deg);
+  }
+}
+@keyframes launch-orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-launch-content,
+  .app-launch-mark,
+  .app-launch-orbit,
+  .hero-live-dot::before,
+  .chalk-stroke path,
+  .chalk-stroke circle,
+  .chalk-stroke ellipse {
+    animation: none;
+  }
 }

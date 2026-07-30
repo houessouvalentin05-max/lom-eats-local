@@ -50,7 +50,8 @@ export const SPOTS: Spot[] = [
     lat: 6.1734,
     lng: 1.1698,
     photo: "/mock/spot-1.jpg",
-    description: "Poisson braisé légendaire et riz jollof parfumé. Ambiance familiale et portions généreuses.",
+    description:
+      "Poisson braisé légendaire et riz jollof parfumé. Ambiance familiale et portions généreuses.",
     opening_hours: "12h – 23h · Fermé le lundi",
     rating: 4.7,
     review_count: 128,
@@ -84,7 +85,8 @@ export const SPOTS: Spot[] = [
     lat: 6.2015,
     lng: 1.2018,
     photo: "/mock/spot-3.jpg",
-    description: "Terrasse en plein air, guirlandes lumineuses. Parfait pour un vendredi soir entre amis.",
+    description:
+      "Terrasse en plein air, guirlandes lumineuses. Parfait pour un vendredi soir entre amis.",
     opening_hours: "17h – 01h · Tous les jours",
     rating: 4.5,
     review_count: 212,
@@ -146,10 +148,11 @@ export const SPOTS: Spot[] = [
     price_range: "$",
     address_description: "Tokoin Wuiti, derrière l'école primaire",
     neighborhood: "Tokoin",
-    lat: 6.1580,
+    lat: 6.158,
     lng: 1.2196,
     photo: "/mock/spot-7.jpg",
-    description: "Koliko (igname frite) et akpan avec sauce tomate épicée. Le déjeuner du quartier.",
+    description:
+      "Koliko (igname frite) et akpan avec sauce tomate épicée. Le déjeuner du quartier.",
     opening_hours: "10h – 16h",
     rating: 4.3,
     review_count: 47,
@@ -181,7 +184,8 @@ export const SPOTS: Spot[] = [
     lat: 6.1789,
     lng: 1.3105,
     photo: "/mock/spot-9.jpg",
-    description: "Café expresso, jus frais et pâtisseries. Le brunch du dimanche est incontournable.",
+    description:
+      "Café expresso, jus frais et pâtisseries. Le brunch du dimanche est incontournable.",
     opening_hours: "7h – 19h",
     rating: 4.5,
     review_count: 72,
@@ -190,12 +194,60 @@ export const SPOTS: Spot[] = [
 ];
 
 export const REVIEWS: Review[] = [
-  { id: "r1", spot_id: "1", user_name: "Kofi A.", rating: 5, text: "Le poisson braisé est incroyable, la sauce de tomate est parfaite. Je reviens chaque semaine.", visited_tag: true, date: "il y a 3 jours" },
-  { id: "r2", spot_id: "1", user_name: "Marie L.", rating: 4, text: "Très bon, mais un peu d'attente le vendredi soir. Ça vaut le coup.", visited_tag: true, date: "il y a 1 semaine" },
-  { id: "r3", spot_id: "1", user_name: "Jean P.", rating: 5, text: "Ambiance authentique, prix corrects.", visited_tag: false, date: "il y a 2 semaines" },
-  { id: "r4", spot_id: "2", user_name: "Ama T.", rating: 5, text: "Le meilleur foufou d'Adidogomé, sans hésitation.", visited_tag: true, date: "il y a 2 jours" },
-  { id: "r5", spot_id: "6", user_name: "Mensah B.", rating: 5, text: "Brochettes juteuses, piment qui réveille. Parfait après une soirée.", visited_tag: true, date: "il y a 5 jours" },
-  { id: "r6", spot_id: "5", user_name: "Sena M.", rating: 5, text: "Les croissants du matin sont divins. Arrivez tôt.", visited_tag: true, date: "il y a 4 jours" },
+  {
+    id: "r1",
+    spot_id: "1",
+    user_name: "Kofi A.",
+    rating: 5,
+    text: "Le poisson braisé est incroyable, la sauce de tomate est parfaite. Je reviens chaque semaine.",
+    visited_tag: true,
+    date: "il y a 3 jours",
+  },
+  {
+    id: "r2",
+    spot_id: "1",
+    user_name: "Marie L.",
+    rating: 4,
+    text: "Très bon, mais un peu d'attente le vendredi soir. Ça vaut le coup.",
+    visited_tag: true,
+    date: "il y a 1 semaine",
+  },
+  {
+    id: "r3",
+    spot_id: "1",
+    user_name: "Jean P.",
+    rating: 5,
+    text: "Ambiance authentique, prix corrects.",
+    visited_tag: false,
+    date: "il y a 2 semaines",
+  },
+  {
+    id: "r4",
+    spot_id: "2",
+    user_name: "Ama T.",
+    rating: 5,
+    text: "Le meilleur foufou d'Adidogomé, sans hésitation.",
+    visited_tag: true,
+    date: "il y a 2 jours",
+  },
+  {
+    id: "r5",
+    spot_id: "6",
+    user_name: "Mensah B.",
+    rating: 5,
+    text: "Brochettes juteuses, piment qui réveille. Parfait après une soirée.",
+    visited_tag: true,
+    date: "il y a 5 jours",
+  },
+  {
+    id: "r6",
+    spot_id: "5",
+    user_name: "Sena M.",
+    rating: 5,
+    text: "Les croissants du matin sont divins. Arrivez tôt.",
+    visited_tag: true,
+    date: "il y a 4 jours",
+  },
 ];
 
 export const CURRENT_USER = {
@@ -208,7 +260,7 @@ export const CURRENT_USER = {
   saved_spot_ids: ["3", "5", "8", "9"],
 };
 
-export const LOME_CENTER: [number, number] = [6.1600, 1.2200];
+export const LOME_CENTER: [number, number] = [6.16, 1.22];
 
 export function priceLabel(p: PriceRange) {
   return p;

@@ -1,7 +1,16 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowLeft, Bookmark, Clock, MapPin, Share2, Star, CheckCircle2, Camera } from "lucide-react";
-import { getSpot, reviewsForSpot, categoryOf, type Review } from "@/lib/mock-data";
+import {
+  ArrowLeft,
+  Bookmark,
+  Clock,
+  MapPin,
+  Share2,
+  Star,
+  CheckCircle2,
+  Camera,
+} from "lucide-react";
+import { getSpot, reviewsForSpot, categoryOf, type Review, type Spot } from "@/lib/mock-data";
 import { ChalkTag } from "@/components/ChalkTag";
 import { CategoryIcon } from "@/components/CategoryIcon";
 
@@ -13,13 +22,16 @@ export const Route = createFileRoute("/spot/$id")({
         ? [
             { title: `${s.name} · LocalEats` },
             { name: "description", content: s.description },
-            { property: "og:title", content: `${s.name} — ${categoryOf(s.category).label} in Lomé` },
+            {
+              property: "og:title",
+              content: `${s.name} — ${categoryOf(s.category).label} in Lomé`,
+            },
             { property: "og:description", content: s.description },
           ]
         : [{ title: "Spot not found" }, { name: "robots", content: "noindex" }],
     };
   },
-  loader: ({ params }) => {
+  loader: ({ params }): SpotLoaderData => {
     const s = getSpot(params.id);
     if (!s) throw notFound();
     return { spot: s, reviews: reviewsForSpot(params.id) };
@@ -30,8 +42,14 @@ export const Route = createFileRoute("/spot/$id")({
   ),
 });
 
+type SpotLoaderData = { spot: Spot; reviews: Review[] };
+
 function SpotPage() {
-  const { spot, reviews: initialReviews } = Route.useLoaderData();
+  // The route generator currently exposes this loader as undefined to tsc.
+  // Keep the component aligned with the explicit loader contract until that
+  // upstream inference issue is resolved.
+  const loaderData = Route.useLoaderData() as unknown as SpotLoaderData;
+  const { spot, reviews: initialReviews } = loaderData;
   const cat = categoryOf(spot.category);
   const [saved, setSaved] = useState(false);
   const [reviews, setReviews] = useState<Review[]>(initialReviews);
@@ -40,7 +58,13 @@ function SpotPage() {
   return (
     <div>
       <div className="relative">
-        <img src={spot.photo} alt={spot.name} width={800} height={500} className="aspect-[4/3] w-full object-cover" />
+        <img
+          src={spot.photo}
+          alt={spot.name}
+          width={800}
+          height={500}
+          className="aspect-[4/3] w-full object-cover md:aspect-[2.4/1]"
+        />
         <div className="absolute inset-x-0 top-0 flex items-center justify-between p-3">
           <Link
             to="/"
@@ -57,14 +81,17 @@ function SpotPage() {
             >
               <Bookmark className={`h-5 w-5 ${saved ? "fill-primary text-primary" : ""}`} />
             </button>
-            <button className="grid h-10 w-10 place-items-center rounded-full bg-background/90 text-foreground shadow" aria-label="Share">
+            <button
+              className="grid h-10 w-10 place-items-center rounded-full bg-background/90 text-foreground shadow"
+              aria-label="Share"
+            >
               <Share2 className="h-5 w-5" />
             </button>
           </div>
         </div>
       </div>
 
-      <div className="space-y-4 px-4 pt-4">
+      <div className="mx-auto max-w-3xl space-y-4 px-4 pt-4 sm:px-6 lg:py-6">
         <div>
           <div className="flex flex-wrap items-center gap-1.5">
             <ChalkTag>
@@ -109,7 +136,10 @@ function SpotPage() {
         {showReview && (
           <ReviewForm
             onSubmit={(r) => {
-              setReviews((prev) => [{ ...r, id: `n-${Date.now()}`, spot_id: spot.id, date: "just now" }, ...prev]);
+              setReviews((prev) => [
+                { ...r, id: `n-${Date.now()}`, spot_id: spot.id, date: "just now" },
+                ...prev,
+              ]);
               setShowReview(false);
             }}
           />
@@ -161,19 +191,33 @@ function SpotPage() {
   );
 }
 
-function InfoRow({ icon, label, children }: { icon: React.ReactNode; label: string; children: React.ReactNode }) {
+function InfoRow({
+  icon,
+  label,
+  children,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  children: React.ReactNode;
+}) {
   return (
     <div className="flex gap-3 text-sm">
       <div className="mt-0.5 shrink-0">{icon}</div>
       <div className="min-w-0 flex-1">
-        <div className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{label}</div>
+        <div className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+          {label}
+        </div>
         <div className="mt-0.5">{children}</div>
       </div>
     </div>
   );
 }
 
-function ReviewForm({ onSubmit }: { onSubmit: (r: Omit<Review, "id" | "spot_id" | "date">) => void }) {
+function ReviewForm({
+  onSubmit,
+}: {
+  onSubmit: (r: Omit<Review, "id" | "spot_id" | "date">) => void;
+}) {
   const [rating, setRating] = useState(5);
   const [text, setText] = useState("");
   const [visited, setVisited] = useState(true);
@@ -188,21 +232,23 @@ function ReviewForm({ onSubmit }: { onSubmit: (r: Omit<Review, "id" | "spot_id" 
       }}
       className="space-y-3 rounded-2xl bg-card p-3 ring-1 ring-border"
     >
-        <div>
-          <div className="mb-1 text-xs font-medium uppercase tracking-wide text-muted-foreground">Your rating</div>
-          <div className="flex gap-1">
-            {[1, 2, 3, 4, 5].map((n) => (
-              <button key={n} type="button" onClick={() => setRating(n)}>
-                <Star
-                  className="h-7 w-7"
-                  strokeWidth={1.5}
-                  fill={n <= rating ? "#E0A63E" : "transparent"}
-                  color={n <= rating ? "#E0A63E" : "rgba(139, 90, 60, 0.5)"}
-                />
-              </button>
-            ))}
-          </div>
+      <div>
+        <div className="mb-1 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+          Your rating
         </div>
+        <div className="flex gap-1">
+          {[1, 2, 3, 4, 5].map((n) => (
+            <button key={n} type="button" onClick={() => setRating(n)}>
+              <Star
+                className="h-7 w-7"
+                strokeWidth={1.5}
+                fill={n <= rating ? "#E0A63E" : "transparent"}
+                color={n <= rating ? "#E0A63E" : "rgba(139, 90, 60, 0.5)"}
+              />
+            </button>
+          ))}
+        </div>
+      </div>
       <textarea
         value={text}
         onChange={(e) => setText(e.target.value)}

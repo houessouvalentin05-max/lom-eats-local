@@ -4,8 +4,8 @@
   "description": "Discover the best street food, maquis and restaurants in Lomé.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#fff7ed",
-  "theme_color": "#e8562b",
+  "background_color": "#1E1B16",
+  "theme_color": "#C6432A",
   "icons": [
     { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
   ]

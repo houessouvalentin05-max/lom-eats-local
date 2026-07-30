@@ -27,7 +27,7 @@ export function MapView({
   return (
     <MapContainer center={center} zoom={zoom} style={{ height, width: "100%" }} scrollWheelZoom>
       <TileLayer
-        attribution='&copy; OpenStreetMap'
+        attribution="&copy; OpenStreetMap"
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       {spots.map((s) => {
@@ -42,7 +42,12 @@ export function MapView({
                   {cat.label} · {s.price_range} · ★ {s.rating.toFixed(1)}
                 </div>
                 <div className="text-xs opacity-70">{s.neighborhood}</div>
-                <Link to="/spot/$id" params={{ id: s.id }} className="mt-1 inline-block text-xs font-semibold" style={{ color: "#12807D" }}>
+                <Link
+                  to="/spot/$id"
+                  params={{ id: s.id }}
+                  className="mt-1 inline-block text-xs font-semibold"
+                  style={{ color: "#12807D" }}
+                >
                   View spot →
                 </Link>
               </div>
@@ -74,7 +79,7 @@ export function PinPickerMap({
   return (
     <MapContainer center={value ?? center} zoom={13} style={{ height: "100%", width: "100%" }}>
       <TileLayer
-        attribution='&copy; OpenStreetMap'
+        attribution="&copy; OpenStreetMap"
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       <Clicker />

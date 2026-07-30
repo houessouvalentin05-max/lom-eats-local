@@ -34,7 +34,9 @@ export function SpotCard({ spot }: { spot: Spot }) {
       </div>
       <div className="space-y-1 p-3">
         <div className="flex items-start justify-between gap-2">
-          <h3 className="min-w-0 truncate font-display text-lg font-semibold leading-tight">{spot.name}</h3>
+          <h3 className="min-w-0 truncate font-display text-lg font-semibold leading-tight">
+            {spot.name}
+          </h3>
           <div className="flex shrink-0 items-center gap-0.5 text-sm">
             <Star className="h-4 w-4" strokeWidth={1.5} fill="#E0A63E" color="#E0A63E" />
             <span className="font-semibold">{spot.rating.toFixed(1)}</span>
@@ -42,7 +44,8 @@ export function SpotCard({ spot }: { spot: Spot }) {
           </div>
         </div>
         <p className="flex items-center gap-1 text-xs text-muted-foreground">
-          <MapPin className="h-3 w-3" strokeWidth={1.5} /> {spot.neighborhood} · {spot.address_description}
+          <MapPin className="h-3 w-3" strokeWidth={1.5} /> {spot.neighborhood} ·{" "}
+          {spot.address_description}
         </p>
       </div>
     </Link>
