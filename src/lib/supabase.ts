@@ -28,3 +28,8 @@ export const supabase =
 export function getSupabaseClient() {
   return supabase;
 }
+
+/** True when a Supabase URL + anon key are configured in this environment. */
+export function isSupabaseConfigured(): boolean {
+  return supabase !== null;
+}

@@ -9,11 +9,14 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import { CircleAlert } from "lucide-react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { BottomNav } from "@/components/BottomNav";
 import { AppLaunchSplash } from "@/components/AppLaunchSplash";
+import { Toaster } from "@/components/ui/sonner";
+import { isSupabaseConfigured } from "@/lib/supabase";
 
 function NotFoundComponent() {
   return (
@@ -132,18 +135,33 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+function DemoBanner() {
+  return (
+    <div className="bg-amber-100 px-4 py-2 text-amber-900 shadow-sm">
+      <p className="mx-auto flex max-w-7xl items-center justify-center gap-2 text-center text-xs font-medium">
+        <CircleAlert className="h-3.5 w-3.5 shrink-0" />
+        <span>
+          Demo mode — a live database isn&apos;t connected, so some content is read-only right now.
+        </span>
+      </p>
+    </div>
+  );
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   return (
     <QueryClientProvider client={queryClient}>
       <AppLaunchSplash />
-      <div className="mx-auto min-h-screen w-full max-w-7xl bg-background pb-24 lg:pb-8 lg:pt-24">        
-  {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+      <div className="mx-auto min-h-dvh w-full max-w-7xl bg-background pb-24 lg:pb-8 lg:pt-24">
+        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+        {!isSupabaseConfigured() && <DemoBanner />}
         <Outlet />
       </div>
-        <TopNav />
+      <TopNav />
       <BottomNav />
+      <Toaster />
     </QueryClientProvider>
   );
 }

@@ -5,8 +5,11 @@ import {
   createSpot as createSpotInDb,
   getSpotById,
   listAllReviews,
+  listBookmarkSpots,
+  listReviewsByUser,
   listReviewsForSpot,
   listSpots,
+  listSpotsByOwner,
   type ReviewInput,
   type SpotInput,
 } from "./spot-service";
@@ -63,6 +66,30 @@ export function useAllReviews() {
     queryKey: queryKeys.reviews,
     queryFn: listAllReviews,
     staleTime: 60_000,
+  });
+}
+
+export function useSpotsByOwner(userId: string) {
+  return useQuery<Spot[]>({
+    queryKey: ["spots", "owner", userId] as const,
+    queryFn: () => listSpotsByOwner(userId),
+    enabled: Boolean(userId),
+  });
+}
+
+export function useReviewsByUser(userId: string) {
+  return useQuery<Review[]>({
+    queryKey: ["reviews", "user", userId] as const,
+    queryFn: () => listReviewsByUser(userId),
+    enabled: Boolean(userId),
+  });
+}
+
+export function useBookmarkSpots(userId: string) {
+  return useQuery<Spot[]>({
+    queryKey: ["bookmarks", userId] as const,
+    queryFn: () => listBookmarkSpots(userId),
+    enabled: Boolean(userId),
   });
 }
 

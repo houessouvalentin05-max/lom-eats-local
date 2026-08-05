@@ -194,6 +194,62 @@ export async function listReviewsForSpot(spotId: string): Promise<Review[]> {
   return (data ?? []).map(mapReview);
 }
 
+export async function listSpotsByOwner(userId: string): Promise<Spot[]> {
+  const client = getSupabaseClient();
+  if (!client || !userId) return [];
+
+  const { data, error } = await client
+    .from("spots")
+    .select("*")
+    .eq("owner_id", userId)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Failed to fetch spots by owner", error);
+    return [];
+  }
+
+  return (data ?? []).map(mapSpot);
+}
+
+export async function listReviewsByUser(userId: string): Promise<Review[]> {
+  const client = getSupabaseClient();
+  if (!client || !userId) return [];
+
+  const { data, error } = await client
+    .from("reviews")
+    .select("*")
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Failed to fetch reviews by user", error);
+    return [];
+  }
+
+  return (data ?? []).map(mapReview);
+}
+
+export async function listBookmarkSpots(userId: string): Promise<Spot[]> {
+  const client = getSupabaseClient();
+  if (!client || !userId) return [];
+
+  const { data, error } = await client
+    .from("bookmarks")
+    .select("spot_id, spots(*)")
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Failed to fetch bookmarked spots", error);
+    return [];
+  }
+
+  return (data ?? [])
+    .map((row) => (row.spots ? mapSpot(row.spots as unknown as SpotRecord) : null))
+    .filter((s): s is Spot => s !== null);
+}
+
 export async function listAllReviews(): Promise<Review[]> {
   const client = getSupabaseClient();
   if (!client) {
