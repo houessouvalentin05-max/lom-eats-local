@@ -9,20 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as AddRouteImport } from './routes/add'
-import { Route as MapRouteImport } from './routes/map'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as MapRouteImport } from './routes/map'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AddRouteImport } from './routes/add'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as SpotIdRouteImport } from './routes/spot.$id'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AddRoute = AddRouteImport.update({
-  id: '/add',
-  path: '/add',
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MapRoute = MapRouteImport.update({
@@ -30,9 +26,19 @@ const MapRoute = MapRouteImport.update({
   path: '/map',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProfileRoute = ProfileRouteImport.update({
-  id: '/profile',
-  path: '/profile',
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AddRoute = AddRouteImport.update({
+  id: '/add',
+  path: '/add',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SpotIdRoute = SpotIdRouteImport.update({
@@ -44,6 +50,7 @@ const SpotIdRoute = SpotIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/add': typeof AddRoute
+  '/auth': typeof AuthRoute
   '/map': typeof MapRoute
   '/profile': typeof ProfileRoute
   '/spot/$id': typeof SpotIdRoute
@@ -51,6 +58,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/add': typeof AddRoute
+  '/auth': typeof AuthRoute
   '/map': typeof MapRoute
   '/profile': typeof ProfileRoute
   '/spot/$id': typeof SpotIdRoute
@@ -59,21 +67,23 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/add': typeof AddRoute
+  '/auth': typeof AuthRoute
   '/map': typeof MapRoute
   '/profile': typeof ProfileRoute
   '/spot/$id': typeof SpotIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/add' | '/map' | '/profile' | '/spot/$id'
+  fullPaths: '/' | '/add' | '/auth' | '/map' | '/profile' | '/spot/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/add' | '/map' | '/profile' | '/spot/$id'
-  id: '__root__' | '/' | '/add' | '/map' | '/profile' | '/spot/$id'
+  to: '/' | '/add' | '/auth' | '/map' | '/profile' | '/spot/$id'
+  id: '__root__' | '/' | '/add' | '/auth' | '/map' | '/profile' | '/spot/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AddRoute: typeof AddRoute
+  AuthRoute: typeof AuthRoute
   MapRoute: typeof MapRoute
   ProfileRoute: typeof ProfileRoute
   SpotIdRoute: typeof SpotIdRoute
@@ -81,18 +91,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/add': {
-      id: '/add'
-      path: '/add'
-      fullPath: '/add'
-      preLoaderRoute: typeof AddRouteImport
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/map': {
@@ -102,11 +105,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MapRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/profile': {
-      id: '/profile'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof ProfileRouteImport
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/add': {
+      id: '/add'
+      path: '/add'
+      fullPath: '/add'
+      preLoaderRoute: typeof AddRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/spot/$id': {
@@ -122,6 +139,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AddRoute: AddRoute,
+  AuthRoute: AuthRoute,
   MapRoute: MapRoute,
   ProfileRoute: ProfileRoute,
   SpotIdRoute: SpotIdRoute,
