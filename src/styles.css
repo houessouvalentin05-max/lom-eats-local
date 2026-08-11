@@ -199,6 +199,36 @@
 }
 
 /* Chalk-on-slate tag */
+/* Loading placeholder: chalk dust sweeping across the empty photo box */
+@utility chalk-shimmer {
+  background: linear-gradient(
+    100deg,
+    rgba(139, 90, 60, 0.1) 20%,
+    rgba(239, 230, 210, 0.65) 42%,
+    rgba(139, 90, 60, 0.1) 64%
+  );
+  background-size: 220% 100%;
+  animation: chalk-dust 1.35s ease-in-out infinite;
+}
+@keyframes chalk-dust {
+  to {
+    background-position: -160% 0;
+  }
+}
+
+/* Horizontal rails: snap + softly faded edges so cut-off items read as scrollable */
+@utility rail {
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scroll-padding-left: 1rem;
+}
+@utility rail-item {
+  scroll-snap-align: start;
+}
+@utility edge-fade {
+  mask-image: linear-gradient(to right, transparent 0, black 14px, black calc(100% - 22px), transparent 100%);
+}
+
 @utility chalk-tag {
   display: inline-flex;
   align-items: center;
@@ -355,6 +385,7 @@
   .app-launch-mark,
   .app-launch-orbit,
   .hero-live-dot::before,
+  .chalk-shimmer,
   .chalk-stroke path,
   .chalk-stroke circle,
   .chalk-stroke ellipse {
