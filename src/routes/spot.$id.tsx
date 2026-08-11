@@ -13,6 +13,7 @@ import {
 import { getSpot, reviewsForSpot, categoryOf, type Review, type Spot } from "@/lib/mock-data";
 import { ChalkTag } from "@/components/ChalkTag";
 import { CategoryIcon } from "@/components/CategoryIcon";
+import { Img } from "@/components/Img";
 
 export const Route = createFileRoute("/spot/$id")({
   head: ({ params }) => {
@@ -57,13 +58,19 @@ function SpotPage() {
 
   return (
     <div>
-      <div className="relative">
-        <img
+      <div className="relative overflow-hidden bg-muted">
+        <Img
           src={spot.photo}
           alt={spot.name}
           width={800}
           height={500}
+          priority
           className="aspect-[4/3] w-full object-cover md:aspect-[2.4/1]"
+        />
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 h-28"
+          style={{ background: "linear-gradient(to bottom, rgba(30,27,22,0.45), transparent)" }}
+          aria-hidden
         />
         <div className="absolute inset-x-0 top-0 flex items-center justify-between p-3">
           <Link
