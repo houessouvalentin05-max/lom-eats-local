@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /**
  * Low-bandwidth friendly image: reserves the layout box, shows a chalk-toned
@@ -20,10 +20,18 @@ export function Img({
   priority?: boolean;
 }) {
   const [loaded, setLoaded] = useState(false);
+  const ref = useRef<HTMLImageElement | null>(null);
+
+  // Images cached or fetched before hydration never fire onLoad — check directly.
+  useEffect(() => {
+    if (ref.current?.complete) setLoaded(true);
+  }, [src]);
+
   return (
     <>
       {!loaded && <span className="chalk-shimmer absolute inset-0" aria-hidden />}
       <img
+        ref={ref}
         src={src}
         alt={alt}
         width={width}
