@@ -91,9 +91,9 @@ function Feed() {
             <Flame className="h-4 w-4 text-primary" strokeWidth={1.5} />
             <h2 className="font-display text-lg font-bold">Trending nearby</h2>
           </div>
-          <div className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:-mx-6 sm:px-6 lg:mx-0 lg:grid lg:grid-cols-3 lg:overflow-visible lg:px-0 xl:grid-cols-4">
+          <div className="rail edge-fade -mx-4 flex gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:-mx-6 sm:px-6 lg:mx-0 lg:grid lg:grid-cols-3 lg:overflow-visible lg:px-0 lg:[mask-image:none] xl:grid-cols-4">
             {trending.map((s) => (
-              <div key={s.id} className="w-64 shrink-0 lg:w-auto">
+              <div key={s.id} className="rail-item w-64 shrink-0 lg:w-auto">
                 <SpotCard spot={s} />
               </div>
             ))}
