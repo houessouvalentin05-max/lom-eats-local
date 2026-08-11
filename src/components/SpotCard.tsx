@@ -3,6 +3,7 @@ import { Star, MapPin } from "lucide-react";
 import { categoryOf, type Spot } from "@/lib/mock-data";
 import { ChalkTag } from "./ChalkTag";
 import { CategoryIcon } from "./CategoryIcon";
+import { Img } from "./Img";
 
 export function SpotCard({ spot }: { spot: Spot }) {
   const cat = categoryOf(spot.category);
@@ -10,16 +11,20 @@ export function SpotCard({ spot }: { spot: Spot }) {
     <Link
       to="/spot/$id"
       params={{ id: spot.id }}
-      className="group block overflow-hidden rounded-2xl bg-card shadow-sm ring-1 ring-border transition active:scale-[0.99]"
+      className="group block overflow-hidden rounded-2xl bg-card shadow-sm ring-1 ring-border transition duration-200 active:scale-[0.99] hover:shadow-[0_14px_34px_-18px_rgba(30,27,22,0.55)]"
     >
       <div className="relative aspect-[16/10] overflow-hidden bg-muted">
-        <img
+        <Img
           src={spot.photo}
           alt={spot.name}
-          loading="lazy"
           width={800}
           height={500}
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+        />
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 h-20"
+          style={{ background: "linear-gradient(to bottom, rgba(30,27,22,0.35), transparent)" }}
+          aria-hidden
         />
         <div className="absolute left-2 top-2 flex gap-1">
           <ChalkTag>
